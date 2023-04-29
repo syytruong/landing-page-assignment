@@ -1,4 +1,4 @@
-import FirstLandingPage from './components/FirstLandingPage';
+import FirstLandingPage from './components/1st-landing-page/FirstLandingPage';
 
 function App() {
   return <FirstLandingPage />;
