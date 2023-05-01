@@ -38,8 +38,8 @@ const FeaturesSection = () => {
           </div>
 
           {/* Mobile */}
-          <div className="flex flex-col lg:hidden items-center">
-            <div className="flex flex-row justify-between w-full px-4">
+          <div className="flex flex-col lg:hidden items-center w-full">
+            <div className="flex flex-row justify-around w-full px-4">
               {/* Download section */}
               <div className="flex flex-col items-center">
                 <FiDownload className="text-4xl" />
