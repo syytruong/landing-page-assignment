@@ -83,6 +83,9 @@ const FeaturesSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Separator */}
+      <div className="hidden lg:block border-t border-gray-300 w-full my-8" style={{ maxWidth: '650px', margin: '0 auto' }}></div>
     </div>
   );
 };
