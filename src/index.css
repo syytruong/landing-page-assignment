@@ -2,6 +2,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+body {
+  background-color: #fff;
+}
+
 .break-text {
   max-width: 700px;
   white-space: normal;
