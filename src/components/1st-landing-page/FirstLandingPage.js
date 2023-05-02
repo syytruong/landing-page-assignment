@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
-import EmailModal from './EmailModal';
 import MainContent from './MainContent';
+import EmailModal from './EmailModal';
 
 const FirstLandingPage = () => {
-  const [showModal, setShowModal] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
-    setShowModal(true);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    setIsModalOpen(false);
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Header />
+    <div className="bg-white min-h-screen">
+      <Header openModal={openModal} />
       <MainContent openModal={openModal} />
-      <EmailModal showModal={showModal} closeModal={closeModal} />
+      {isModalOpen && <EmailModal closeModal={closeModal} />}
     </div>
   );
 };
