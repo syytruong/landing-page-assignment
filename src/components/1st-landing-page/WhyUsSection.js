@@ -29,27 +29,27 @@ const WhyUsSection = ({ openModal }) => {
 
       {/* Text lines */}
       <div className="mt-6 flex flex-col items-center text-gray-700 w-full">
-        <div className="flex items-start lg:space-x-6 w-full px-4 lg:justify-center">
+        <div className="flex items-start lg:space-x-6 w-full px-4 md:justify-center">
           <div className="w-6">
             <RiCheckLine className="text-2xl text-green-700" />
           </div>
-          <p className="text-left text-cyan-800 lg:text-center">
+          <p className="text-left xl:text-center text-cyan-800">
             Global Access: From anywhere and in any device
           </p>
         </div>
-        <div className="flex items-start lg:space-x-6 w-full px-4 lg:justify-center">
+        <div className="flex items-start lg:space-x-6 w-full px-4 md:justify-center">
           <div className="w-6">
             <RiCheckLine className="text-2xl text-green-700" />
           </div>
-          <p className="text-left text-cyan-800 lg:text-center">
+          <p className="text-left xl:text-center text-cyan-800">
             Your own space in the cloud: 5TB of Cloud Storage space included
           </p>
         </div>
-        <div className="flex items-start lg:space-x-6 w-full px-4 lg:justify-center">
+        <div className="flex items-start lg:space-x-6 w-full px-4 md:justify-center">
           <div className="w-6">
             <RiCheckLine className="text-2xl text-green-700" />
           </div>
-          <p className="text-left text-cyan-800 lg:text-center">
+          <p className="text-left xl:text-center text-cyan-800">
             Unlimited Speed: No speed or transfer limits
           </p>
         </div>
