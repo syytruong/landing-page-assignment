@@ -1,5 +1,6 @@
 import React from 'react';
 import { RiCloseLine } from 'react-icons/ri';
+import { RiMailLine } from 'react-icons/ri';
 
 const EmailModal = ({ closeModal }) => {
   return (
@@ -19,9 +20,8 @@ const EmailModal = ({ closeModal }) => {
           <h3 className="text-white text-left font-semibold">3 Easy Steps</h3>
         </div>
 
-        {/* Modal body */}
+        {/* Steps */}
         <div className="bg-white p-4 relative">
-          {/* Steps */}
           <div className="flex flex-col justify-between items-start h-36">
             <div className="flex items-center">
               <div className="w-9 h-9 bg-cyan-800 text-white text-center rounded-full flex items-center justify-center">
@@ -43,6 +43,28 @@ const EmailModal = ({ closeModal }) => {
               </div>
               <span className="ml-4 text-gray-400">Get Access to your content</span>
             </div>
+          </div>
+        </div>
+
+        {/* Register part */}
+        <div className="bg-gray-200 p-4 relative">
+          <div className="h-full flex flex-col justify-between">
+            <div className="relative h-14 w-full">
+              <RiMailLine className="absolute text-gray-500 text-xl top-4 left-3" />
+              <input
+                type="email"
+                className="h-full w-full pl-10 border border-gray-300 rounded"
+                placeholder="Fill in your email"
+              />
+            </div>
+            <button className="bg-green-600 text-white font-semibold py-2 w-full rounded mt-4">
+              Continue
+            </button>
+            <p className="text-xs text-gray-400 mt-2 text-center w-full">
+              By clicking on "Continue", you agree with the{' '}
+              <span className="underline">Terms & Conditions</span> and the{' '}
+              <span className="underline">Privacy Policy</span>.
+            </p>
           </div>
         </div>
 
