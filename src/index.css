@@ -19,3 +19,14 @@ body {
   margin-left: 16px;
   margin-right: 16px;
 }
+
+/* For extra small screen devices, i.e Galaxy Fold */
+@media screen and (max-width: 320px) {
+  .dash-one {
+    top: 3.8rem !important;
+  }
+
+  .dash-two {
+    top: 7rem !important;
+  }
+}
