@@ -20,39 +20,32 @@ const EmailModal = ({ closeModal }) => {
         </div>
 
         {/* Modal body */}
-        <div className="bg-white p-4">
-          {/* Timeline Step 1 */}
-          <div className="flex items-center">
-            <div className="relative">
-              <div className="bg-cyan-800 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold">
+        <div className="bg-white p-4 relative">
+          {/* Steps */}
+          <div className="flex flex-col justify-between items-start h-36">
+            <div className="flex items-center">
+              <div className="w-9 h-9 bg-cyan-800 text-white text-center rounded-full flex items-center justify-center">
                 1
               </div>
-              {/* Vertical dashed line */}
-              <div className="border-l-2 border-solid border-cyan-800 h-8 w-0.5 absolute bottom-0 -mb-8 left-1/2 -ml-0.25" />
+              <span className="ml-4 text-cyan-800 font-semibold">Create your Free Account</span>
             </div>
-            <h4 className="ml-4 text-cyan-800 font-semibold">Create your free account</h4>
-          </div>
-
-          {/* Timeline Step 2 */}
-          <div className="flex items-center">
-            <div className="relative">
-              <div className="bg-gray-300 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold">
+            <div className="absolute left-8 top-14 w-0.5 bg-gray-300 h-7"></div>
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-gray-300 text-gray-800 text-center rounded-full flex items-center justify-center">
                 2
               </div>
-              {/* Vertical dashed line */}
-              <div className="border-l-2 border-solid border-gray-300 h-8 w-0.5 absolute bottom-0 -mb-8 left-1/2 -ml-0.25" />
+              <span className="ml-4 text-gray-400">Verify your Account</span>
             </div>
-            <h4 className="ml-4 text-gray-600 font-semibold">Verify your account</h4>
-          </div>
-
-          {/* Timeline Step 3 */}
-          <div className="flex items-center">
-            <div className="bg-gray-300 text-white rounded-full w-8 h-8 flex items-center justify-center font-semibold">
-              3
+            <div className="absolute left-8 w-0.5 bg-gray-300 h-6" style={{ top: '6.5rem' }}></div>
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-gray-300 text-gray-800 text-center rounded-full flex items-center justify-center">
+                3
+              </div>
+              <span className="ml-4 text-gray-400">Get Access to your content</span>
             </div>
-            <h4 className="ml-4 text-gray-600 font-semibold">Get access to your content</h4>
           </div>
         </div>
+
       </div>
     </div>
   );
