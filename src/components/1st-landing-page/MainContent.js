@@ -1,6 +1,7 @@
 import React from 'react';
 import ActivationSection from './ActivationSection';
 import FeaturesSection from './FeaturesSection';
+import WhyUsSection from './WhyUsSection';
 
 const MainContent = ({ openModal }) => {
   return (
@@ -14,6 +15,7 @@ const MainContent = ({ openModal }) => {
 
       <ActivationSection openModal={openModal} />
       <FeaturesSection />
+      <WhyUsSection openModal={openModal} />
     </div>
   );
 };

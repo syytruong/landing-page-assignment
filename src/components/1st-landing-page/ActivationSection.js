@@ -29,7 +29,7 @@ const ActivationSection = ({ openModal }) => {
         </div>
         <div className="vertical-separator"></div>
         <div className="flex flex-col items-center w-48">
-          <button className="bg-green-700 text-white px-12 py-2 rounded flex items-center">
+          <button className="bg-green-700 hover:bg-green-600 text-white px-12 py-2 rounded flex items-center">
             <FiDownload />
             <span className="ml-2" onClick={openModal}>Continue</span>
           </button>
