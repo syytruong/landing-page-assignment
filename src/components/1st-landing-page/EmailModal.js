@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RiCloseLine, RiMailLine } from 'react-icons/ri';
 
-const EmailModal = ({ closeModal }) => {
+const EmailModal = ({ closeModal, onSubmit }) => {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const isValidEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+  };
+
+  const handleContinue = () => {
+    if (isValidEmail(email)) {
+      setError('');
+      onSubmit(email);
+    } else {
+      setError('Invalid email format');
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black bg-opacity-60 pt-4 sm:items-center">
       <div className="w-full max-w-lg p-4 rounded shadow-lg relative lg:flex lg:max-w-3xl">
@@ -75,9 +96,14 @@ const EmailModal = ({ closeModal }) => {
                   type="email"
                   className="h-full w-full pl-10 border border-gray-300 rounded"
                   placeholder="Fill in your email"
+                  onChange={(e) => handleEmailChange(e)}
                 />
               </div>
-              <button className="bg-green-600 text-white font-semibold py-2 w-full rounded mt-4">
+              {error?.length ? <span className="text-xs text-red-500">{error}</span> : null}
+              <button
+                className="bg-green-600 text-white font-semibold py-2 w-full rounded mt-4"
+                onClick={handleContinue}
+              >
                 Continue
               </button>
               <p className="text-xs text-gray-400 mt-2 text-center w-full">
