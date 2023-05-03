@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { BsCreditCard, BsCheckCircle, BsFillPatchCheckFill } from 'react-icons/bs';
 import { FaCcVisa, FaCcMastercard, FaCcDiscover, FaCcAmex } from 'react-icons/fa';
 import { TbBrandMastercard } from 'react-icons/tb';
+import ReactSelect from 'react-select';
 
 const generateMonthOptions = () => {
   const today = new Date();
@@ -38,16 +39,67 @@ const generateYearOptions = () => {
 const monthOptions = generateMonthOptions();
 const yearOptions = generateYearOptions();
 
+const yearSelectOptions = yearOptions.map((year) => ({
+  value: year,
+  label: year,
+}));
+
+const customStyles = {
+  indicatorSeparator: () => ({
+    display: 'none',
+  }),
+};
+
 const SecondLandingPage = () => {
   const [fullName, setFullName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [expMonth, setExpMonth] = useState(monthOptions[0].value);
-  const [expYear, setExpYear] = useState('');
+  const [expYear, setExpYear] = useState(yearSelectOptions[0].value);
   const [cvv, setCvv] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [cardNumberError, setCardNumberError] = useState('');
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const email = searchParams.get('email');
+  const [email, setEmail] = useState(searchParams.get('email'));
+
+  useEffect(() => {
+    validateEmail(email);
+  }, [email]);
+
+  const validateEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!regex.test(email)) {
+      setEmailError('Invalid email format');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    validateEmail(e.target.value);
+  };
+
+  useEffect(() => {
+    validateCardNumber(cardNumber);
+  }, [cardNumber]);
+
+  const validateCardNumber = (cardNumber) => {
+    const regex = /^\d{4}\s\d{4}\s\d{4}\s\d{4}$/;
+    if (!regex.test(cardNumber)) {
+      setCardNumberError('Invalid credit card number');
+    } else {
+      setCardNumberError('');
+    }
+  };
+
+  const handleCardNumberChange = (e) => {
+    let value = e.target.value.replace(/[^0-9]/g, ''); // Remove any non-digit characters
+    value = value.match(/.{1,4}/g)?.join(' ').substr(0, 19) || ''; // Group digits in sets of 4 and limit the input length to 19 (including spaces)
+    setCardNumber(value);
+    validateCardNumber(value);
+  };
 
   const renderTextWithIcon = (text) => (
     <div className="flex items-center mb-2">
@@ -119,10 +171,11 @@ const SecondLandingPage = () => {
           <label className="block text-sm font-medium mb-1">Email</label>
           <input
             type="email"
-            className="w-full px-2 py-1 border border-gray-300 rounded"
+            className={`w-full px-2 py-1 border ${emailError ? 'border-red-500' : 'border-gray-300'} rounded`}
             value={email}
-            readOnly
+            onChange={handleEmailChange}
           />
+          {emailError && <p className="text-sm text-red-500 mt-1">{emailError}</p>}
         </div>
 
         <div className="mb-4">
@@ -148,51 +201,54 @@ const SecondLandingPage = () => {
           </div>
           <input
             type="text"
-            className="w-full px-2 py-1 border border-gray-300 rounded"
+            className={`w-full px-2 py-1 border ${cardNumberError ? 'border-red-500' : 'border-gray-300'} rounded`}
             value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
+            onChange={handleCardNumberChange}
           />
+          {cardNumberError && <p className="text-sm text-red-500 mt-1">{cardNumberError}</p>}
         </div>
 
-        <div className="flex space-x-4">
-          <div className="w-1/3">
-            <label className="block text-sm font-medium mb-1">Exp. Month</label>
-            <select
-              className="w-full px-2 py-1 border border-gray-300 rounded"
-              value={expMonth}
-              onChange={(e) => setExpMonth(e.target.value)}
-            >
-              {monthOptions.map((option, index) => (
-                <option key={index} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+        <div className="flex flex-wrap">
+          <div className="w-1/3 min-w-0">
+              <label className="block text-sm font-medium mb-1">Exp. Month</label>
+              <div className="w-auto">
+                <ReactSelect
+                  className="w-full"
+                  value={monthOptions.find((option) => option.value === expMonth)}
+                  onChange={(selectedOption) => setExpMonth(selectedOption.value)}
+                  options={monthOptions}
+                  styles={customStyles}
+                />
+              </div>
           </div>
 
-          <div className="w-1/3">
+          <div className="w-1/3 min-w-0">
             <label className="block text-sm font-medium mb-1">Exp. Year</label>
-            <select
-              className="w-full px-2 py-1 border border-gray-300 rounded"
-              value={expYear}
-              onChange={(e) => setExpYear(e.target.value)}
-            >
-              {yearOptions.map((year, index) => (
-                <option key={index} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
+            <div className="w-auto">
+              <ReactSelect
+                className="w-full"
+                value={yearSelectOptions.find((option) => option.value === expYear)}
+                onChange={(selectedOption) => setExpYear(selectedOption.value)}
+                options={yearSelectOptions}
+                styles={customStyles}
+              />
+            </div>
           </div>
 
-          <div className="w-1/3">
+          <div className="w-1/3 min-w-0">
             <label className="block text-sm font-medium mb-1">CVV</label>
             <div className="relative">
               <input
                 type="text"
                 className="w-full pl-2 pr-8 py-1 border border-gray-300 rounded"
+                style={{ minHeight: '38px' }} // Match the height of ReactSelect
                 value={cvv}
-                onChange={(e) => setCvv(e.target.value)}
+                onChange={(e) => {
+                  if (/^\d{0,3}$/.test(e.target.value)) {
+                    setCvv(e.target.value);
+                  }
+                }}
+                maxLength={3}
               />
               <BsCreditCard className="absolute right-2 top-1/2 transform -translate-y-1/2 text-blue-400" />
             </div>
