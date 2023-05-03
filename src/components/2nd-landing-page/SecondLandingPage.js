@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { BsCheckCircle, BsFillPatchCheckFill } from 'react-icons/bs';
+import { BsCheckCircle } from 'react-icons/bs';
 import { FaCcVisa, FaCcMastercard, FaCcDiscover, FaCcAmex } from 'react-icons/fa';
 import { TbBrandMastercard } from 'react-icons/tb';
+import Header from './Header';
 import ModalHeader from './ModalHeader';
 import FreeAccessIntroduction from './FreeAccessIntroduction';
 import ClientInformationForm from './ClientInformationForm';
@@ -171,7 +172,7 @@ const SecondLandingPage = () => {
     }
 
     if (!hasErrors) {
-      // Handle the click event for the "Get Access" button
+      alert("Get Access successfully! Data provided is valid!");
     }
   };
 
@@ -180,9 +181,7 @@ const SecondLandingPage = () => {
       {/* Mobile view */}
       <div className="lg:hidden">
         {/* Header */}
-        <div className="flex justify-end items-center py-4 px-4 bg-gray-200 pr-2">
-          <BsFillPatchCheckFill className="text-cyan-900 text-xl" />
-        </div>
+        <Header />
 
         {/* Free access introduction */}
         <FreeAccessIntroduction />
@@ -222,11 +221,11 @@ const SecondLandingPage = () => {
       {/* Laptop view */}
       <div className="hidden lg:flex flex-col w-full h-screen bg-white">
         {/* Header */}
-        <div className="flex justify-end items-center py-8 px-4 bg-gray-200 pr-2 w-full mb-4"></div>
+        <Header />
 
         {/* Modals */}
         <div className="w-full flex justify-center">
-          <div className="w-3/4 grid grid-cols-11 gap-8">
+          <div className="w-3/4 grid grid-cols-11 gap-8 pb-4">
             {/* Left modal */}
             <div className="col-span-6 bg-gray-250 flex flex-col rounded h-full bg-gray-100">
               {/* Modal header */}
@@ -262,7 +261,7 @@ const SecondLandingPage = () => {
             </div>
 
             {/* Right modal */}
-            <div className="col-span-5 flex flex-col rounded">
+            <div className="col-span-5 flex flex-col rounded h-full bg-gray-100">
               {/* Picture */}
               <ShowCasePicture />
 
