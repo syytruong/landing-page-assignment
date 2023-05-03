@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { BsCreditCard, BsCheckCircle, BsFillPatchCheckFill } from 'react-icons/bs';
+import { BsCreditCard, BsCheckCircle, BsFillPatchCheckFill, BsDownload } from 'react-icons/bs';
 import { FaCcVisa, FaCcMastercard, FaCcDiscover, FaCcAmex } from 'react-icons/fa';
 import { TbBrandMastercard } from 'react-icons/tb';
 import ReactSelect from 'react-select';
@@ -58,6 +58,8 @@ const SecondLandingPage = () => {
   const [cvv, setCvv] = useState('');
   const [emailError, setEmailError] = useState('');
   const [cardNumberError, setCardNumberError] = useState('');
+  const [fullNameError, setFullNameError] = useState('');
+  const [cvvError, setCvvError] = useState('');
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -136,6 +138,38 @@ const SecondLandingPage = () => {
     }
   ];
 
+  const handleGetAccessClick = () => {
+    let hasErrors = false;
+
+    if (!email || emailError) {
+      setEmailError('Please enter a valid email');
+      hasErrors = true;
+    }
+
+    if (!fullName) {
+      setFullNameError('Please enter your full name');
+      hasErrors = true;
+    } else {
+      setFullNameError('');
+    }
+
+    if (!cardNumber || cardNumberError) {
+      setCardNumberError('Please enter a valid credit card number');
+      hasErrors = true;
+    }
+
+    if (!cvv) {
+      setCvvError('Please enter a valid CVV');
+      hasErrors = true;
+    } else {
+      setCvvError('');
+    }
+
+    if (!hasErrors) {
+      // Handle the click event for the "Get Access" button
+    }
+  };
+
   return (
     <div className="bg-gray-200 w-full min-h-screen">
       {/* Header */}
@@ -182,10 +216,11 @@ const SecondLandingPage = () => {
           <label className="block text-sm font-medium mb-1">Full Name</label>
           <input
             type="text"
-            className="w-full px-2 py-1 border border-gray-300 rounded"
+            className={`w-full px-2 py-1 border ${fullNameError ? 'border-red-500' : 'border-gray-300'} rounded`}
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
+          {fullNameError && <p className="text-sm text-red-500 mt-1">{fullNameError}</p>}
         </div>
 
         <div className="mb-4">
@@ -240,7 +275,7 @@ const SecondLandingPage = () => {
             <div className="relative">
               <input
                 type="text"
-                className="w-full pl-2 pr-8 py-1 border border-gray-300 rounded"
+                className={`w-full pl-2 pr-8 py-1 border ${cvvError ? 'border-red-500' : 'border-gray-300'} rounded`}
                 style={{ minHeight: '38px' }} // Match the height of ReactSelect
                 value={cvv}
                 onChange={(e) => {
@@ -252,8 +287,42 @@ const SecondLandingPage = () => {
               />
               <BsCreditCard className="absolute right-2 top-1/2 transform -translate-y-1/2 text-blue-400" />
             </div>
+            {cvvError && <p className="text-sm text-red-500 mt-1">{cvvError}</p>}
           </div>
+
+          <button
+            className="w-full bg-green-600 hover:bg-green-500 text-white font-semibold py-2 rounded mt-4 flex items-center justify-center"
+            onClick={handleGetAccessClick}
+          >
+            <BsDownload className="mr-2" />
+            GET ACCESS
+          </button>
+
+          <p className="text-xs text-center mt-2">
+            By clicking on "Get Access", you agree with the{' '}
+            <a href="/terms-of-service" className="text-green-500">
+              Terms of Service
+            </a>{' '}
+            and{' '}
+            <a href="/privacy-policy" className="text-green-500">
+              Privacy Policy
+            </a>
+          </p>
         </div>
+      </div>
+
+      {/* Explanation section */}
+      <div className="py-8">
+        <h4 className="text-center text-sm font-semibold mb-4">
+          WHY IS MY CREDIT CARD REQUIRED?
+        </h4>
+        <p className="px-4 text-center text-xs text-gray-400">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id
+          consequat nisi. Vestibulum accumsan, quam sit amet fermentum tempor,
+          dui elit cursus lacus, nec consequat sem odio id nisi. Nullam
+          vulputate, risus vitae convallis placerat, elit ligula laoreet massa,
+          at tristique justo ipsum vitae nisl. Suspendisse potenti.
+        </p>
       </div>
     </div>
   );
