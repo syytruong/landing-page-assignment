@@ -119,7 +119,7 @@ const ClientInformationForm = (props) => {
         </div>
 
         <button
-          className="w-full bg-green-600 hover:bg-green-500 text-white font-semibold py-2 rounded mt-4 flex items-center justify-center"
+          className="w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-2 rounded mt-4 flex items-center justify-center"
           onClick={handleGetAccessClick}
         >
           <BsDownload className="mr-2" />
