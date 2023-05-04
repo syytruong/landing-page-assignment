@@ -27,6 +27,22 @@ To install and run the project, follow these steps:
 4. Run `npm start` to start the development server.
 5. Open your browser and go to `http://localhost:3000` to view the application.
 
+## Usage
+
+To use the application, simply enter a valid credit card number in the input field and click the 'Submit' button. If the credit card number is valid, the application will redirect you to the 1st-landing-page. If the number is invalid, an error message will be displayed.
+
+Valid credit card numbers have the following characteristics:
+
+- 13 to 19 digits in length
+- Pass the Luhn algorithm check
+
+> Note: This application is for demonstration purposes only and does not process actual credit card transactions.
+> Note: Correct credit card number for test: 1234 5678 9012 3456
+
+## Luhn Algorithm
+
+The Luhn algorithm is a simple checksum formula used to validate a variety of identification numbers, such as credit card numbers. The algorithm works by calculating a check digit based on the input number and verifying that the calculated check digit matches the actual check digit included in the input.
+
 ## Dependencies
 
 This project uses the following dependencies:

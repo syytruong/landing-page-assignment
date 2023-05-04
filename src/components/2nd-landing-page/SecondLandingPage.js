@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { BsCheckCircle } from 'react-icons/bs';
 import { FaCcVisa, FaCcMastercard, FaCcDiscover, FaCcAmex } from 'react-icons/fa';
 import { TbBrandMastercard } from 'react-icons/tb';
@@ -70,6 +70,10 @@ const SecondLandingPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const [email, setEmail] = useState(searchParams.get('email'));
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     validateEmail(email);
@@ -144,7 +148,8 @@ const SecondLandingPage = () => {
     }
   ];
 
-  const handleGetAccessClick = () => {
+  const handleGetAccessClick = async () => {
+    setIsLoading(true);
     let hasErrors = false;
 
     if (!email || emailError) {
@@ -172,8 +177,47 @@ const SecondLandingPage = () => {
     }
 
     if (!hasErrors) {
-      alert("Get Access successfully! Data provided is valid!");
+      try {
+        const isCardValid = await checkCreditCard(cardNumber);
+        if (!isCardValid) {
+          setCardNumberError("Credit card is invalid");
+        } else {
+          await createUser();
+          // After successful user creation, return to the first landing page
+          history.push('/');
+        }
+      } catch (error) {
+        // TODO: log the error
+        console.error("Oops, something went wrong!");
+      }
     }
+
+    // To show loading in UI
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  };
+
+  const createUser = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Dummy API call to create user
+        resolve(true);
+      }, 1000);
+    });
+  };
+
+  const checkCreditCard = (cardNumber) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Dummy check for credit card validity
+        if (cardNumber === '1234 5678 9012 3456') {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      }, 1000);
+    });
   };
 
   return (
@@ -257,6 +301,7 @@ const SecondLandingPage = () => {
                 setCvv={setCvv}
                 cvvError={cvvError}
                 handleGetAccessClick={handleGetAccessClick}
+                isLoading={isLoading}
               />
             </div>
 

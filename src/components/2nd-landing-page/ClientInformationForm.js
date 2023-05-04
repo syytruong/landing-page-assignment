@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { BsCreditCard, BsDownload } from 'react-icons/bs';
 import ReactSelect from 'react-select';
+import { CircleLoader } from 'react-spinners';
 
 const ClientInformationForm = (props) => {
   const {
@@ -24,7 +25,8 @@ const ClientInformationForm = (props) => {
     cvv,
     setCvv,
     cvvError,
-    handleGetAccessClick
+    handleGetAccessClick,
+    isLoading,
   } = props;
 
   return (
@@ -121,9 +123,17 @@ const ClientInformationForm = (props) => {
         <button
           className="w-full bg-green-700 hover:bg-green-600 text-white font-semibold py-2 rounded mt-4 flex items-center justify-center"
           onClick={handleGetAccessClick}
+          disabled={isLoading}
+          style={{ opacity: isLoading ? '0.5' : '1' }}
         >
-          <BsDownload className="mr-2" />
-          GET ACCESS
+          {isLoading ? (
+            <CircleLoader size={24} color="white" />
+          ) : (
+            <Fragment>
+              <BsDownload className="mr-2" />
+              GET ACCESS
+            </Fragment>
+          )}
         </button>
 
         <p className="text-xs text-center mt-2">
